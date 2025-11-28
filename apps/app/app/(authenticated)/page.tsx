@@ -1,8 +1,7 @@
-import { auth } from "@repo/auth/server";
+import { getSession } from "@repo/auth/server";
 import { database } from "@repo/database";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { notFound } from "next/navigation";
 import { env } from "@/env";
 import { AvatarStack } from "./components/avatar-stack";
 import { Cursors } from "./components/cursors";
@@ -24,17 +23,16 @@ export const metadata: Metadata = {
 
 const App = async () => {
   const pages = await database.page.findMany();
-  const { orgId } = await auth();
+  const session = await getSession();
 
-  if (!orgId) {
-    notFound();
-  }
+  // Use user ID as a fallback for organization ID since Better-Auth doesn't have orgs by default
+  const roomId = session?.user?.id || "default";
 
   return (
     <>
       <Header page="Data Fetching" pages={["Building Your Application"]}>
-        {env.LIVEBLOCKS_SECRET && (
-          <CollaborationProvider orgId={orgId}>
+        {env.LIVEBLOCKS_SECRET && roomId && (
+          <CollaborationProvider orgId={roomId}>
             <AvatarStack />
             <Cursors />
           </CollaborationProvider>

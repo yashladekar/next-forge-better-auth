@@ -1,6 +1,6 @@
 "use client";
 
-import { OrganizationSwitcher, UserButton } from "@repo/auth/client";
+import { useSession, signOut } from "@repo/auth/client";
 import { ModeToggle } from "@repo/design-system/components/mode-toggle";
 import { Button } from "@repo/design-system/components/ui/button";
 import {
@@ -31,9 +31,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebar,
 } from "@repo/design-system/components/ui/sidebar";
-import { cn } from "@repo/design-system/lib/utils";
 import { NotificationsTrigger } from "@repo/notifications/components/trigger";
 import {
   AnchorIcon,
@@ -43,6 +41,7 @@ import {
   FolderIcon,
   FrameIcon,
   LifeBuoyIcon,
+  LogOutIcon,
   MapIcon,
   MoreHorizontalIcon,
   PieChartIcon,
@@ -51,8 +50,10 @@ import {
   ShareIcon,
   SquareTerminalIcon,
   Trash2Icon,
+  UserIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { Search } from "./search";
 
@@ -189,25 +190,60 @@ const data = {
   ],
 };
 
-export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
-  const sidebar = useSidebar();
+const UserButton = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
 
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/sign-in");
+    router.refresh();
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="flex w-full items-center gap-2 px-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+            {session?.user?.image ? (
+              <img
+                src={session.user.image}
+                alt={session.user.name || "User"}
+                className="h-8 w-8 rounded-full"
+              />
+            ) : (
+              <UserIcon className="h-4 w-4" />
+            )}
+          </div>
+          <div className="flex flex-1 flex-col items-start text-left">
+            <span className="truncate text-sm font-medium">
+              {session?.user?.name || "User"}
+            </span>
+            <span className="truncate text-xs text-muted-foreground">
+              {session?.user?.email}
+            </span>
+          </div>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="w-56">
+        <DropdownMenuItem onClick={handleSignOut}>
+          <LogOutIcon className="mr-2 h-4 w-4" />
+          Sign out
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
   return (
     <>
       <Sidebar variant="inset">
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <div
-                className={cn(
-                  "h-[36px] overflow-hidden transition-all [&>div]:w-full",
-                  sidebar.open ? "" : "-mx-1"
-                )}
-              >
-                <OrganizationSwitcher
-                  afterSelectOrganizationUrl="/"
-                  hidePersonal
-                />
+              <div className="flex h-[36px] items-center px-2 font-semibold">
+                Acme Inc
               </div>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -326,16 +362,7 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem className="flex items-center gap-2">
-              <UserButton
-                appearance={{
-                  elements: {
-                    rootBox: "flex overflow-hidden w-full",
-                    userButtonBox: "flex-row-reverse",
-                    userButtonOuterIdentifier: "truncate pl-0",
-                  },
-                }}
-                showName
-              />
+              <UserButton />
               <div className="flex shrink-0 items-center gap-px">
                 <ModeToggle />
                 <Button
