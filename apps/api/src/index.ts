@@ -1,11 +1,17 @@
 import cors from "cors";
-import express, { type Request, type Response } from "express";
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from "express";
 import helmet from "helmet";
 import { authRouter } from "./routes/auth.js";
 import { healthRouter } from "./routes/health.js";
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+const DEFAULT_PORT = 3002;
+const HTTP_STATUS_INTERNAL_ERROR = 500;
+const PORT = process.env.PORT || DEFAULT_PORT;
 
 // Middleware
 app.use(helmet());
@@ -30,13 +36,14 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 // Error handling middleware
-app.use((err: Error, _req: Request, res: Response) => {
-  console.error(err.stack);
-  res.status(500).json({ error: "Internal Server Error" });
-});
+app.use(
+  (_err: Error, _req: Request, res: Response, _next: NextFunction): void => {
+    res
+      .status(HTTP_STATUS_INTERNAL_ERROR)
+      .json({ error: "Internal Server Error" });
+  }
+);
 
-app.listen(PORT, () => {
-  console.log(`API server running on port ${PORT}`);
-});
+app.listen(PORT);
 
 export default app;

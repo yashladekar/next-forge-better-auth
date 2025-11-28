@@ -22,7 +22,7 @@ model Page {
 
 // Better-Auth tables
 model User {
-  id            String    @id
+  id            String    @id @default(cuid())
   name          String
   email         String    @unique
   emailVerified Boolean   @default(false)
@@ -34,7 +34,7 @@ model User {
 }
 
 model Session {
-  id        String   @id
+  id        String   @id @default(cuid())
   expiresAt DateTime
   token     String   @unique
   createdAt DateTime @default(now())
@@ -48,7 +48,7 @@ model Session {
 }
 
 model Account {
-  id                    String    @id
+  id                    String    @id @default(cuid())
   accountId             String
   providerId            String
   userId                String
@@ -67,7 +67,7 @@ model Account {
 }
 
 model Verification {
-  id         String   @id
+  id         String   @id @default(cuid())
   identifier String
   value      String
   expiresAt  DateTime

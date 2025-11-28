@@ -52,10 +52,13 @@ import {
   Trash2Icon,
   UserIcon,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { Search } from "./search";
+
+const AVATAR_SIZE = 32;
 
 type GlobalSidebarProperties = {
   readonly children: ReactNode;
@@ -190,6 +193,18 @@ const data = {
   ],
 };
 
+const isValidImageUrl = (url: string | null | undefined): url is string => {
+  if (!url) {
+    return false;
+  }
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "https:" || parsed.protocol === "http:";
+  } catch {
+    return false;
+  }
+};
+
 const UserButton = () => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -200,16 +215,21 @@ const UserButton = () => {
     router.refresh();
   };
 
+  const userImage = session?.user?.image;
+  const hasValidImage = isValidImageUrl(userImage);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="flex w-full items-center gap-2 px-2" variant="ghost">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
-            {session?.user?.image ? (
-              <img
-                alt={session.user.name || "User"}
+            {hasValidImage ? (
+              <Image
+                alt={session?.user?.name || "User"}
                 className="h-8 w-8 rounded-full"
-                src={session.user.image}
+                height={AVATAR_SIZE}
+                src={userImage}
+                width={AVATAR_SIZE}
               />
             ) : (
               <UserIcon className="h-4 w-4" />
