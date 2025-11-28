@@ -1053,8 +1053,8 @@ importers:
         specifier: 1.0.0-beta.13
         version: 1.0.0-beta.13(next@16.0.0(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       '@nosecone/next':
-        specifier: 1.0.0-beta.13
-        version: 1.0.0-beta.13(next@16.0.0(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        specifier: 1.0.0-beta.15
+        version: 1.0.0-beta.15(next@16.0.0(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       '@t3-oss/env-nextjs':
         specifier: ^0.13.8
         version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.1.12)
@@ -2861,9 +2861,9 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nosecone/next@1.0.0-beta.13':
-    resolution: {integrity: sha512-xUME9Q/KhwiXX/BiPZgM/5ggzvApJKOt9TJNmJ1eWKJMlvx47RYnlvOskefyhfF6sVjFHq41dq7Cbl8cnZ2l5A==}
-    engines: {node: '>=18'}
+  '@nosecone/next@1.0.0-beta.15':
+    resolution: {integrity: sha512-uX3pnSeengqiPnKa06mq2X/e4AKnu0WeLd1mGrjVGYU0eB1inRgvmn3Vsxk1cauEQ5NLw+RhK6MPJYaO1l6cdA==}
+    engines: {node: '>=20'}
     peerDependencies:
       next: '>=14'
 
@@ -5846,9 +5846,6 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  caniuse-lite@1.0.30001702:
-    resolution: {integrity: sha512-LoPe/D7zioC0REI5W73PeR1e1MLCipRGq/VkovJnd6Df+QVqT+vT33OXCp8QUd7kA7RZrHWxb1B36OQKI/0gOA==}
-
   caniuse-lite@1.0.30001750:
     resolution: {integrity: sha512-cuom0g5sdX6rw00qOoLNSFCJ9/mYIsuSOA+yzpDw8eopiFqcVwQvZHqov0vmEighRxX++cfC0Vg1G+1Iy/mSpQ==}
 
@@ -8803,9 +8800,9 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
 
-  nosecone@1.0.0-beta.13:
-    resolution: {integrity: sha512-Wxv2mCyHOIKCgdGcEdGmah9xZ7nlduhrEdlwKaOzEjLXrWF7CVWqkA4Y/U1pAldQgSMXihg6akI7P+YxZBWZYg==}
-    engines: {node: '>=18'}
+  nosecone@1.0.0-beta.15:
+    resolution: {integrity: sha512-e3D16yrYQKu+qtILUNEoopdhloAjBcjpREwi2XSyi9tt6Tupk+rPEh/omydf9OJqkBZaM05hyFcBpBJbYvndIg==}
+    engines: {node: '>=20'}
 
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
@@ -13066,10 +13063,10 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@nosecone/next@1.0.0-beta.13(next@16.0.0(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))':
+  '@nosecone/next@1.0.0-beta.15(next@16.0.0(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))':
     dependencies:
       next: 16.0.0(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      nosecone: 1.0.0-beta.13
+      nosecone: 1.0.0-beta.15
 
   '@octokit/auth-token@2.5.0':
     dependencies:
@@ -17045,8 +17042,6 @@ snapshots:
 
   camelcase-css@2.0.1: {}
 
-  caniuse-lite@1.0.30001702: {}
-
   caniuse-lite@1.0.30001750: {}
 
   case-sensitive-paths-webpack-plugin@2.4.0: {}
@@ -20442,7 +20437,7 @@ snapshots:
     dependencies:
       '@next/env': 15.5.4
       '@swc/helpers': 0.5.15
-      caniuse-lite: 1.0.30001702
+      caniuse-lite: 1.0.30001750
       postcss: 8.4.31
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
@@ -20611,7 +20606,7 @@ snapshots:
 
   normalize-range@0.1.2: {}
 
-  nosecone@1.0.0-beta.13: {}
+  nosecone@1.0.0-beta.15: {}
 
   npm-run-path@4.0.1:
     dependencies:
