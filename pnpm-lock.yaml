@@ -352,6 +352,9 @@ importers:
       '@repo/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/cms':
         specifier: workspace:*
         version: link:../../packages/cms
@@ -526,6 +529,9 @@ importers:
 
   packages/auth:
     dependencies:
+      '@better-fetch/fetch':
+        specifier: ^1.1.18
+        version: 1.1.18
       '@repo/database':
         specifier: workspace:*
         version: link:../database
@@ -535,6 +541,9 @@ importers:
       better-auth:
         specifier: ^1.4.3
         version: 1.4.3(next@16.0.0(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      lucide-react:
+        specifier: ^0.548.0
+        version: 0.548.0(react@19.2.0)
       next:
         specifier: 16.0.0
         version: 16.0.0(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)

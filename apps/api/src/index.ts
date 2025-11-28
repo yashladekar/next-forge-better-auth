@@ -6,6 +6,7 @@ import express, {
 } from "express";
 import helmet from "helmet";
 import { authRouter } from "./routes/auth.js";
+import { adminRouter } from "./routes/admin.js";
 import { healthRouter } from "./routes/health.js";
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(express.json());
 // Routes
 app.use("/health", healthRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/admin", adminRouter);
 
 // Root endpoint
 app.get("/", (_req: Request, res: Response) => {

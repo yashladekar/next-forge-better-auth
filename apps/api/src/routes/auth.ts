@@ -1,19 +1,38 @@
 import { type Request, type Response, Router } from "express";
+import { requireAuth } from "../middleware/auth.js";
 
 export const authRouter = Router();
 
-// Placeholder auth routes - for production, integrate with Better-Auth
-// The main authentication is handled by the app on port 3000
+// Get current session
+// Uses the auth middleware to validate session
+authRouter.get(
+  "/session",
+  requireAuth,
+  (req: Request, res: Response): void => {
+    res.json({
+      session: req.session?.session,
+      user: req.session?.user,
+    });
+  }
+);
 
-authRouter.get("/session", (_req: Request, res: Response) => {
-  // Session validation would go here
-  res.json({ message: "Session endpoint - use app auth at port 3000" });
-});
+// Protected endpoint example
+authRouter.get(
+  "/me",
+  requireAuth,
+  (req: Request, res: Response): void => {
+    res.json({
+      user: req.session?.user,
+    });
+  }
+);
 
-authRouter.post("/signin", (_req: Request, res: Response) => {
-  res.json({ message: "Sign in via app at port 3000" });
-});
-
-authRouter.post("/signout", (_req: Request, res: Response) => {
-  res.json({ message: "Sign out via app at port 3000" });
+// Info endpoint for auth configuration
+authRouter.get("/info", (_req: Request, res: Response): void => {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  res.json({
+    message: "Authentication is handled by Better-Auth",
+    signInUrl: `${appUrl}/sign-in`,
+    signUpUrl: `${appUrl}/sign-up`,
+  });
 });

@@ -1,4 +1,5 @@
 import { currentUser } from "@repo/auth/server";
+import type { Role } from "@repo/auth/rbac";
 import { SidebarProvider } from "@repo/design-system/components/ui/sidebar";
 import { showBetaFeature } from "@repo/feature-flags";
 import { secure } from "@repo/security";
@@ -24,10 +25,12 @@ const AppLayout = async ({ children }: AppLayoutProperties) => {
     redirect("/sign-in");
   }
 
+  const userRole: Role = user.role || "USER";
+
   return (
     <NotificationsProvider userId={user.id}>
       <SidebarProvider>
-        <GlobalSidebar>
+        <GlobalSidebar userRole={userRole}>
           {betaFeature && (
             <div className="m-4 rounded-full bg-blue-500 p-1.5 text-center text-sm text-white">
               Beta feature now available
