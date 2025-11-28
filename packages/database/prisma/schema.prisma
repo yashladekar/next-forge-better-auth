@@ -20,6 +20,13 @@ model Page {
   name String
 }
 
+// RBAC Role enum
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+}
+
 // Better-Auth tables
 model User {
   id            String    @id @default(cuid())
@@ -27,6 +34,7 @@ model User {
   email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
+  role          Role      @default(USER)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
