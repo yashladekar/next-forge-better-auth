@@ -1,19 +1,5 @@
-import { StripeAgentToolkit } from "@stripe/agent-toolkit/ai-sdk";
-import { keys } from "./keys";
-
-export const paymentsAgentToolkit = new StripeAgentToolkit({
-  secretKey: keys().STRIPE_SECRET_KEY,
-  configuration: {
-    actions: {
-      paymentLinks: {
-        create: true,
-      },
-      products: {
-        create: true,
-      },
-      prices: {
-        create: true,
-      },
-    },
-  },
-});
+/**
+ * @deprecated Stripe integration has been removed.
+ * This package is deprecated and will be removed in a future version.
+ */
+export const paymentsAgentToolkit: null = null;

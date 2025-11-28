@@ -4,17 +4,15 @@ import {
   noseconeOptionsWithToolbar,
   securityMiddleware,
 } from "@repo/security/middleware";
-import type { NextMiddleware } from "next/server";
+import type { NextMiddleware, NextRequest } from "next/server";
 import { env } from "./env";
 
 const securityHeaders = env.FLAGS_SECRET
   ? securityMiddleware(noseconeOptionsWithToolbar)
   : securityMiddleware(noseconeOptions);
 
-// Clerk middleware wraps other middleware in its callback
-// For apps using Clerk, compose middleware inside authMiddleware callback
-// For apps without Clerk, use createNEMO for composition (see apps/web)
-export default authMiddleware(() =>
+// Better-Auth middleware wrapper for composing with security middleware
+export default authMiddleware((request: NextRequest) =>
   securityHeaders()
 ) as unknown as NextMiddleware;
 

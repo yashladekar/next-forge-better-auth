@@ -1,5 +1,5 @@
 import "server-only";
-import { auth } from "@repo/auth/server";
+import { getSession } from "@repo/auth/server";
 import { Svix } from "svix";
 import { keys } from "../keys";
 
@@ -11,21 +11,24 @@ export const send = async (eventType: string, payload: object) => {
   }
 
   const svix = new Svix(svixToken);
-  const { orgId } = await auth();
+  const session = await getSession();
 
-  if (!orgId) {
+  // Use user ID as app ID since Better-Auth doesn't have orgs by default
+  const appId = session?.user?.id;
+
+  if (!appId) {
     return;
   }
 
-  return svix.message.create(orgId, {
+  return svix.message.create(appId, {
     eventType,
     payload: {
       eventType,
       ...payload,
     },
     application: {
-      name: orgId,
-      uid: orgId,
+      name: appId,
+      uid: appId,
     },
   });
 };
@@ -36,16 +39,19 @@ export const getAppPortal = async () => {
   }
 
   const svix = new Svix(svixToken);
-  const { orgId } = await auth();
+  const session = await getSession();
 
-  if (!orgId) {
+  // Use user ID as app ID since Better-Auth doesn't have orgs by default
+  const appId = session?.user?.id;
+
+  if (!appId) {
     return;
   }
 
-  return svix.authentication.appPortalAccess(orgId, {
+  return svix.authentication.appPortalAccess(appId, {
     application: {
-      name: orgId,
-      uid: orgId,
+      name: appId,
+      uid: appId,
     },
   });
 };

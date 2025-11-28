@@ -1,4 +1,3 @@
-import { authMiddleware } from "@repo/auth/middleware";
 import { internationalizationMiddleware } from "@repo/internationalization/middleware";
 import { parseError } from "@repo/observability/error";
 import { secure } from "@repo/security";
@@ -48,7 +47,7 @@ const arcjetMiddleware = async (request: NextRequest) => {
   }
 };
 
-// Compose non-Clerk middleware with Nemo
+// Compose middleware with Nemo
 const composedMiddleware = createNEMO(
   {},
   {
@@ -56,8 +55,8 @@ const composedMiddleware = createNEMO(
   }
 );
 
-// Clerk middleware wraps other middleware in its callback
-export default authMiddleware(async (_auth, request, event) => {
+// Middleware wrapper that composes security headers and other middleware
+const middleware: NextMiddleware = async (request, event) => {
   // Run security headers first
   const headersResponse = securityHeaders();
 
@@ -69,4 +68,6 @@ export default authMiddleware(async (_auth, request, event) => {
 
   // Return middleware response if it exists, otherwise headers response
   return middlewareResponse || headersResponse;
-}) as unknown as NextMiddleware;
+};
+
+export default middleware;

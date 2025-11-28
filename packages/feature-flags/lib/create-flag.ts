@@ -1,5 +1,5 @@
 import { analytics } from "@repo/analytics/server";
-import { auth } from "@repo/auth/server";
+import { getSession } from "@repo/auth/server";
 import { flag } from "flags/next";
 
 export const createFlag = (key: string) =>
@@ -7,13 +7,13 @@ export const createFlag = (key: string) =>
     key,
     defaultValue: false,
     async decide() {
-      const { userId } = await auth();
+      const session = await getSession();
 
-      if (!userId) {
+      if (!session?.user?.id) {
         return this.defaultValue as boolean;
       }
 
-      const isEnabled = await analytics.isFeatureEnabled(key, userId);
+      const isEnabled = await analytics.isFeatureEnabled(key, session.user.id);
 
       return isEnabled ?? (this.defaultValue as boolean);
     },
