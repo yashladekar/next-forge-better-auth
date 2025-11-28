@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { signUp } from "../client";
 
 export const SignUp = () => {
@@ -47,64 +47,64 @@ export const SignUp = () => {
           Enter your details to get started
         </p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="space-y-2">
           <label
-            htmlFor="name"
             className="font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor="name"
           >
             Name
           </label>
           <input
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             id="name"
-            type="text"
-            value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="John Doe"
             required
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            type="text"
+            value={name}
           />
         </div>
         <div className="space-y-2">
           <label
-            htmlFor="email"
             className="font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor="email"
           >
             Email
           </label>
           <input
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             id="email"
-            type="email"
-            value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="name@example.com"
             required
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            type="email"
+            value={email}
           />
         </div>
         <div className="space-y-2">
           <label
-            htmlFor="password"
             className="font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor="password"
           >
             Password
           </label>
           <input
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             id="password"
-            type="password"
-            value={password}
+            minLength={8}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
             required
-            minLength={8}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            type="password"
+            value={password}
           />
         </div>
         {error && <p className="text-destructive text-sm">{error}</p>}
         <button
-          type="submit"
-          disabled={loading}
           className="inline-flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          disabled={loading}
+          type="submit"
         >
           {loading ? "Creating account..." : "Create account"}
         </button>
@@ -112,8 +112,8 @@ export const SignUp = () => {
       <p className="text-center text-muted-foreground text-sm">
         Already have an account?{" "}
         <a
-          href="/sign-in"
           className="text-primary underline-offset-4 hover:underline"
+          href="/sign-in"
         >
           Sign in
         </a>

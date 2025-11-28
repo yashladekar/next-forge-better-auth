@@ -9,9 +9,7 @@ type AuthProviderProperties = {
   helpUrl?: string;
 };
 
-export const AuthProvider = ({
-  children,
-}: AuthProviderProperties) => {
+export const AuthProvider = ({ children }: AuthProviderProperties) => {
   // Better-Auth doesn't require a provider wrapper like Clerk
   // The session is managed through cookies and server-side validation
   return <>{children}</>;

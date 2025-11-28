@@ -2,7 +2,11 @@ import type { NextRequest, NextResponse } from "next/server";
 
 type MiddlewareCallback = (
   request: NextRequest
-) => NextResponse | Response | void | Promise<NextResponse | Response | void>;
+) =>
+  | NextResponse
+  | Response
+  | undefined
+  | Promise<NextResponse | Response | undefined>;
 
 /**
  * Auth middleware wrapper for Better-Auth
@@ -10,7 +14,7 @@ type MiddlewareCallback = (
  * This wrapper allows composing with other middleware
  */
 export const authMiddleware = (callback?: MiddlewareCallback) => {
-  return async (request: NextRequest) => {
+  return (request: NextRequest) => {
     // Execute the callback middleware if provided
     if (callback) {
       return callback(request);

@@ -1,8 +1,21 @@
 import "server-only";
+import { database } from "@repo/database";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { database } from "@repo/database";
 import { headers } from "next/headers";
+
+// Session configuration constants (in seconds)
+const SECONDS_PER_MINUTE = 60;
+const MINUTES_PER_HOUR = 60;
+const HOURS_PER_DAY = 24;
+const DAYS_FOR_SESSION = 7;
+const MINUTES_FOR_CACHE = 5;
+
+const SEVEN_DAYS_IN_SECONDS =
+  SECONDS_PER_MINUTE * MINUTES_PER_HOUR * HOURS_PER_DAY * DAYS_FOR_SESSION;
+const ONE_DAY_IN_SECONDS =
+  SECONDS_PER_MINUTE * MINUTES_PER_HOUR * HOURS_PER_DAY;
+const FIVE_MINUTES_IN_SECONDS = MINUTES_FOR_CACHE * SECONDS_PER_MINUTE;
 
 export const auth = betterAuth({
   database: prismaAdapter(database, {
@@ -13,11 +26,11 @@ export const auth = betterAuth({
     requireEmailVerification: false,
   },
   session: {
-    expiresIn: 60 * 60 * 24 * 7, // 7 days
-    updateAge: 60 * 60 * 24, // 1 day
+    expiresIn: SEVEN_DAYS_IN_SECONDS,
+    updateAge: ONE_DAY_IN_SECONDS,
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60, // 5 minutes
+      maxAge: FIVE_MINUTES_IN_SECONDS,
     },
   },
   trustedOrigins: [

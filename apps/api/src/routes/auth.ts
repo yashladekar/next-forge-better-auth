@@ -1,17 +1,19 @@
-import { Router, type Request, type Response } from "express";
-import { auth } from "@repo/auth/server";
-import { toNodeHandler } from "better-auth/node";
+import { type Request, type Response, Router } from "express";
 
 export const authRouter = Router();
 
-const authHandler = toNodeHandler(auth);
+// Placeholder auth routes - for production, integrate with Better-Auth
+// The main authentication is handled by the app on port 3000
 
-// Handle all auth routes
-authRouter.all("/*splat", async (req: Request, res: Response) => {
-  try {
-    await authHandler(req, res);
-  } catch (error) {
-    console.error("Auth error:", error);
-    res.status(500).json({ error: "Authentication error" });
-  }
+authRouter.get("/session", (_req: Request, res: Response) => {
+  // Session validation would go here
+  res.json({ message: "Session endpoint - use app auth at port 3000" });
+});
+
+authRouter.post("/signin", (_req: Request, res: Response) => {
+  res.json({ message: "Sign in via app at port 3000" });
+});
+
+authRouter.post("/signout", (_req: Request, res: Response) => {
+  res.json({ message: "Sign out via app at port 3000" });
 });
