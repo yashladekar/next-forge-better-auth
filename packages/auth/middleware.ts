@@ -1,6 +1,6 @@
 import { betterFetch } from "@better-fetch/fetch";
 import { NextResponse, type NextRequest } from "next/server";
-import type { Role } from "./rbac";
+import { type Role, ROLES } from "./rbac";
 
 type MiddlewareCallback = (
   request: NextRequest
@@ -95,7 +95,7 @@ export const createAuthMiddleware = (config: MiddlewareConfig = {}) => {
     // Check admin routes
     if (isAdminRoute) {
       const userRole = sessionData.user?.role;
-      if (userRole !== "ADMIN") {
+      if (userRole !== ROLES.ADMIN) {
         // Redirect non-admin users to default page
         return NextResponse.redirect(new URL(defaultRedirect, request.url));
       }

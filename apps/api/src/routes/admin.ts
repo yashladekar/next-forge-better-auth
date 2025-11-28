@@ -30,7 +30,8 @@ adminRouter.get(
 
       const data = await response.json();
       res.json(data);
-    } catch {
+    } catch (error) {
+      console.error("[Admin API] Failed to fetch users:", error);
       res.status(500).json({ error: "Failed to fetch users" });
     }
   }
